@@ -10,6 +10,13 @@
 
 // phpcs:disable
 
+// Sicurezza: da qui in poi si esegue solo da riga di comando. Il file finisce dentro
+// wp-content/plugins/, quindi deve essere inerte se qualcuno lo richiama via browser
+// o se viene incluso per errore dentro WordPress.
+if ( 'cli' !== PHP_SAPI || defined( 'ABSPATH' ) ) {
+	exit( 1 );
+}
+
 define( 'ABSPATH', __DIR__ . '/' );
 define( 'FS3D_IO_VERSION', '1.0.0-test' );
 define( 'FS3D_IO_OPT_SETTINGS', 'fs3d_io_settings' );

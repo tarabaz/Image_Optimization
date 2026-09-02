@@ -3,12 +3,19 @@
  * Test isolati delle funzioni piu' rischiose: conversione file e scrittura .htaccess.
  *
  * Girano in una sandbox temporanea, senza WordPress e senza toccare il sito.
- * Uso:  php fs3d-image-optimizer/tests/smoke-test.php
+ * Uso:  php tests/smoke-test.php
  *
  * @package FS3D_Image_Optimizer
  */
 
 // phpcs:disable
+
+// Sicurezza: da qui in poi si esegue solo da riga di comando. Il file finisce dentro
+// wp-content/plugins/, quindi deve essere inerte se qualcuno lo richiama via browser
+// o se viene incluso per errore dentro WordPress.
+if ( 'cli' !== PHP_SAPI || defined( 'ABSPATH' ) ) {
+	exit( 1 );
+}
 
 require __DIR__ . '/wp-stubs.php';
 

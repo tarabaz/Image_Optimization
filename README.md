@@ -42,11 +42,22 @@ dei servizi a pagamento.
 
 ## Installazione
 
-1. Comprimi la cartella `fs3d-image-optimizer/` in uno zip.
-2. WordPress → Plugin → Aggiungi nuovo → Carica plugin → attiva.
+I file del plugin stanno nella **root del repository**, non in una sottocartella: lo zip
+scaricato da GitHub è quindi installabile direttamente, senza doverlo ricomporre a mano.
+
+1. Su GitHub: **Code → Download ZIP**.
+2. WordPress → Plugin → Aggiungi nuovo → **Carica plugin** → scegli lo zip → Installa → Attiva.
 3. Menu **Ottimizza immagini** nella barra laterale.
 
-In alternativa, carica la cartella via FTP in `/wp-content/plugins/`.
+WordPress chiamerà la cartella del plugin come lo zip, quindi `Image_Optimization-main`.
+Funziona benissimo così — nessun percorso è scritto a mano nel codice — ma se preferisci
+un nome pulito, via FTP rinomina `wp-content/plugins/Image_Optimization-main` in
+`fs3d-image-optimizer` mentre il plugin è disattivato, poi riattivalo.
+
+In alternativa, via FTP: copia il contenuto del repository dentro una cartella
+`wp-content/plugins/fs3d-image-optimizer/`, in modo che `fs3d-image-optimizer.php` si trovi
+al primo livello di quella cartella. È il file con l'header del plugin: WordPress lo cerca
+lì e solo lì.
 
 L'attivazione **non** scrive niente nel `.htaccess` e non converte niente: ogni azione
 che tocca il sito parte solo da un clic esplicito.
@@ -128,7 +139,7 @@ I punti più delicati — conversione dei file e scrittura del `.htaccess` — h
 che gira in una sandbox temporanea, senza WordPress e senza toccare nessun sito:
 
 ```bash
-php fs3d-image-optimizer/tests/smoke-test.php
+php tests/smoke-test.php
 ```
 
 52 controlli, tra cui: l'originale resta identico byte per byte dopo la conversione, la
@@ -140,8 +151,8 @@ scrittura e rimozione, e il blocco non si duplica se lo si riscrive.
 ## Struttura
 
 ```
-fs3d-image-optimizer/
-├── fs3d-image-optimizer.php     Bootstrap e hook
+.
+├── fs3d-image-optimizer.php     Bootstrap e hook (file con l'header del plugin)
 ├── uninstall.php                Pulizia alla disinstallazione
 ├── includes/
 │   ├── class-fs3d-io-settings.php     Impostazioni e sanitizzazione
@@ -159,7 +170,8 @@ fs3d-image-optimizer/
 │   ├── views/                   Viste delle tab
 │   ├── css/admin.css
 │   └── js/admin.js
-└── tests/
+├── languages/                   File di traduzione (.mo/.po)
+└── tests/                       Eseguibili solo da riga di comando
     ├── wp-stubs.php             Stub minimi delle funzioni WordPress
     └── smoke-test.php           Test isolati
 ```

@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name:       FS3D Image Optimizer
+ * Plugin Name:       Francy Image Optimizer
  * Plugin URI:        https://francystore3d.it/
  * Description:       Converte le immagini della libreria in WebP/AVIF affiancando i file agli originali (mai sovrascritti) e li serve via content negotiation con .htaccess. Nessun URL viene modificato nel database.
  * Version:           1.0.0

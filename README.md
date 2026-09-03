@@ -176,6 +176,35 @@ scrittura e rimozione, e il blocco non si duplica se lo si riscrive.
     └── smoke-test.php           Test isolati
 ```
 
+## Se metti mano al codice
+
+Due cose che sembrano innocue e non lo sono.
+
+**I marcatori del blocco `.htaccess`**, in `includes/class-fs3d-io-htaccess.php`:
+
+```php
+const MARKER_START = '# BEGIN FS3D Image Optimizer';
+const MARKER_END   = '# END FS3D Image Optimizer';
+```
+
+Portano ancora il nome vecchio ed è voluto. Quelle righe sono già scritte dentro
+`wp-content/uploads/.htaccess` sui siti dove il plugin è attivo: cambiandole, il
+plugin non riconoscerebbe più il blocco esistente, non riuscirebbe a rimuoverlo e
+ne scriverebbe un secondo, lasciando due blocchi di rewrite nello stesso file.
+Vanno toccate solo insieme a una migrazione che rimuove prima il blocco con i
+marcatori vecchi — e non ne vale la pena, sono righe che vede solo chi apre il
+file via FTP.
+
+**Prefissi e chiavi dei dati**: il prefisso `FS3D_IO_`, il text domain
+`fs3d-image-optimizer`, lo slug del menu, i nomi delle option (`fs3d_io_settings`,
+`fs3d_io_stats`, ...) e le chiavi postmeta (`_fs3d_io_data`, `_fs3d_io_status`).
+Rinominarli farebbe perdere impostazioni, statistiche e stato di ottimizzazione
+dell'intera libreria: il plugin ripartirebbe da zero e considererebbe "da fare"
+immagini già convertite. Sono identificatori interni, l'utente non li vede mai.
+
+I nomi visibili sono altri: l'header `Plugin Name`, e in
+`includes/class-fs3d-io-admin.php` il titolo della pagina e la voce di menu.
+
 ## Note operative
 
 * **GIF ed SVG non vengono trattati.** Le GIF animate in WebP sono fragili e gli SVG sono

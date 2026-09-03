@@ -15,7 +15,7 @@ defined( 'ABSPATH' ) || exit;
 <div class="wrap fs3d-io">
 	<h1 class="fs3d-io__title">
 		<span class="dashicons dashicons-format-image"></span>
-		<?php esc_html_e( 'Ottimizzazione immagini', 'fs3d-image-optimizer' ); ?>
+		<?php esc_html_e( 'Francy Image Optimizer', 'fs3d-image-optimizer' ); ?>
 	</h1>
 
 	<p class="fs3d-io__lead">

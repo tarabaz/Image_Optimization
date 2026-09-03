@@ -45,8 +45,8 @@ class FS3D_IO_Admin {
 	 */
 	public static function register_menu() {
 		self::$hook = add_menu_page(
-			__( 'Ottimizzazione immagini', 'fs3d-image-optimizer' ),
-			__( 'Ottimizza immagini', 'fs3d-image-optimizer' ),
+			__( 'Francy Image Optimizer', 'fs3d-image-optimizer' ),
+			__( 'Francy Img webp', 'fs3d-image-optimizer' ),
 			'manage_options',
 			self::PAGE_SLUG,
 			array( __CLASS__, 'render_page' ),
